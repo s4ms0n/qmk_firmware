@@ -43,6 +43,7 @@ enum custom_keycodes {
   OUML,
   UUML,
   SSS,
+  EURO,
   USB_RESET
 };
 
@@ -56,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------------------.       ,------------------------------------------------------.
  * | ESC        |   1  |   2  |   3  |   4  |   5  |      |       |      |   6  |   7  |   8  |   9  |   0  |            |
  * |------------+------+------+------+------+-------------|       |------+------+------+------+------+------+------------|
- * | TAB        |   Q  |   G  |   M  |   L  |   W  |      |       |      |   B  |   Y  |   U  |   V  |   Ü  |            |
+ * | TAB        |   Q  |   G  |   M  |   L  |   W  |      |       |      |   B  |   Y  |   U  |   V  |   Ü  |  Num Lock  |
  * |------------+------+------+------+------+------|      |       |      |------+------+------+------+------+------------|
  * | To Symbols |   D  |   S  |   T  |   N  |   R  |------|       |------|   I  |   A  |   E  |   O  |   H  | To Symbols |
  * |------------+------+------+------+------+------| To   |       |      |------+------+------+------+------+------------|
@@ -82,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                             ,KC_PGUP
                                       ,KC_ENT     ,KC_LGUI  ,KC_PGDN
                                                                    ,DELETE_LAST_30  ,KC_6    ,KC_7       ,KC_8        ,KC_9      ,KC_0            ,MO(COMMAND)
-                                                                   ,TG(GAME)        ,KC_B    ,KC_Y       ,KC_U        ,KC_V      ,UUML            ,KC_TRNS
+                                                                   ,TG(GAME)        ,KC_B    ,KC_Y       ,KC_U        ,KC_V      ,UUML            ,KC_NLCK
                                                                                     ,KC_I    ,KC_A       ,KC_E        ,KC_O      ,KC_H            ,MO(SYMBOLS)
                                                                    ,MO(MOUSE)       ,KC_K    ,KC_P       ,KC_COMM     ,KC_DOT    ,SSS             ,KC_RSFT
                                                                                              ,OUML       ,AUML        ,KC_RGUI   ,KC_RALT         ,KC_RCTL
@@ -98,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |         |      |   _  |   [  |   ]  |   ^  |  ☺   |           |      |   !  |   <  |   >  |   =  |   &  |   @    |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |   \  |   /  |   {  |   }  |   *  |------|           |------|   ?  |   (  |   )  |   -  |   :  |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   #  |   $  |   |  |   ~  |      |      |           |      |   +  |   %  |   "  |   '  |   ;  |        |
+ * |---------+------+------+------+------+------|      |           |Scroll|------+------+------+------+------+--------|
+ * |         |   #  |   $  |   |  |   ~  |      |      |           | Lock |   +  |   %  |   "  |   '  |   ;  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |   H  |   J  |   K  |   L  |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -116,14 +117,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ,KC_TRNS ,KC_GRAVE,KC_UNDS ,KC_LBRC ,KC_RBRC ,MY_CIRC    ,UC(0x263a)
       ,KC_TRNS ,KC_BSLS ,KC_SLSH ,KC_LCBR ,KC_RCBR ,KC_ASTR
       ,KC_TRNS ,KC_HASH ,KC_DLR  ,KC_PIPE ,MY_TILD ,KC_TRNS    ,KC_TRNS
-      ,EPRM    ,KC_TRNS ,KC_TRNS ,KC_CIRC ,KC_TILD
+      ,EPRM    ,KC_TRNS ,EURO    ,KC_CIRC ,KC_TILD
                                           ,KC_TRNS ,KC_TRNS
                                                    ,KC_TRNS
                                ,KC_TRNS   ,KC_TRNS ,KC_TRNS
                                                                 ,KC_TRNS    ,KC_F6         ,KC_F7         ,KC_F8               ,KC_F9         ,KC_F10     ,KC_F11
                                                                 ,KC_TRNS    ,KC_EXLM       ,LSFT(KC_COMM) ,LSFT(KC_DOT)        ,KC_EQL        ,KC_AMPR    ,KC_AT
                                                                             ,LSFT(KC_SLSH) ,KC_LPRN       ,KC_RPRN             ,KC_MINS       ,KC_COLN    ,KC_TRNS
-                                                                ,KC_TRNS    ,KC_PLUS       ,KC_PERC       ,MY_DQUOT            ,MY_SQUOT      ,KC_SCLN    ,KC_TRNS
+                                                                ,KC_SLCK    ,KC_PLUS       ,KC_PERC       ,MY_DQUOT            ,MY_SQUOT      ,KC_SCLN    ,KC_TRNS
                                                                                            ,KC_H          ,KC_J                ,KC_K          ,KC_L       ,KC_TRNS
                                                                 ,RGB_TOG    ,KC_TRNS
                                                                 ,KC_TRNS
@@ -261,6 +262,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false; break;
     case SSS:
       if (record->event.pressed) { SEND_STRING(SS_RALT("s")); }
+      return false; break;
+    case EURO:
+      if (record->event.pressed) { SEND_STRING(SS_RALT("5")); }
       return false; break;
     case SELECT_ALL:
       if (record->event.pressed) { SEND_STRING(SS_LCTRL("a")); }
