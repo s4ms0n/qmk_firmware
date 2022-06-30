@@ -74,12 +74,8 @@ if [ "$RUNTIME" = "docker" ]; then
 fi
 
 # Run container and build firmware
-<<<<<<< HEAD
 "$RUNTIME" run --rm -it $usb_args \
 	$uid_arg \
-=======
-docker run --rm -it $usb_args \
->>>>>>> 07f9f7b27f (adding an experimental layout (mixture of neo and carpalax optimized QGMLWB)
 	-w /qmk_firmware \
 	-v "$dir":/qmk_firmware \
 	-e ALT_GET_KEYBOARDS=true \
