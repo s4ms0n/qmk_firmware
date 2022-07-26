@@ -47,10 +47,6 @@ enum custom_keycodes {
   USB_RESET
 };
 
-enum custom_macros {
-  COPY_PASTE,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /******* QGMLW Layer *****************************************************************************************************
  *
@@ -75,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [QGMLW] = LAYOUT_ergodox(
  KC_ESC     ,KC_1        ,KC_2        ,KC_3       ,KC_4     ,KC_5  ,SELECT_ALL
-,KC_TAB     ,KC_Q        ,KC_G        ,KC_M       ,KC_L     ,KC_W  ,M(COPY_PASTE)
+,KC_TAB     ,KC_Q        ,KC_G        ,KC_M       ,KC_L     ,KC_W  ,KC_TRNS
 ,MO(SYMBOLS),KC_D        ,KC_S        ,KC_T       ,KC_N     ,KC_R
 ,KC_LSFT    ,KC_Z        ,KC_X        ,KC_C       ,KC_F     ,KC_J  ,MO(MOUSE)
 ,KC_LCTL    ,KC_LALT     ,KC_LGUI     ,KC_HOME    ,KC_END
@@ -356,20 +352,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-        case COPY_PASTE: {
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(C), U(LCTL), END  );
-            } else {
-                return MACRO( D(LCTL), T(V), U(LCTL), END  );
-            }
-            break;
-        }
-    }
-    return MACRO_NONE;
-}; 
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
