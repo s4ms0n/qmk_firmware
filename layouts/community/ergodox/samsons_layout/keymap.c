@@ -1,13 +1,13 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
 
-#define QGMLW 0
-#define SYMBOLS 1
-#define MOUSE 2
-#define COMMAND 3
-#define GAME 4
+enum layer_names {
+  QGMLW,
+  SYMBOLS,
+  MOUSE,
+  COMMAND,
+  GAME
+};
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -70,8 +70,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                   `--------------------'       `--------------------'
  */
 [QGMLW] = LAYOUT_ergodox(
- KC_ESC     ,KC_1        ,KC_2        ,KC_3       ,KC_4     ,KC_5  ,SELECT_ALL
-,KC_TAB     ,KC_Q        ,KC_G        ,KC_M       ,KC_L     ,KC_W  ,KC_TRNS
+ KC_ESC     ,KC_1        ,KC_2        ,KC_3       ,KC_4     ,KC_5  ,MO(COMMAND)
+,KC_TAB     ,KC_Q        ,KC_G        ,KC_M       ,KC_L     ,KC_W  ,TG(GAME)
 ,MO(SYMBOLS),KC_D        ,KC_S        ,KC_T       ,KC_N     ,KC_R
 ,KC_LSFT    ,KC_Z        ,KC_X        ,KC_C       ,KC_F     ,KC_J  ,MO(MOUSE)
 ,KC_LCTL    ,KC_LALT     ,KC_LGUI     ,KC_HOME    ,KC_END
@@ -354,6 +354,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
-};
+//void matrix_init_user(void) {
+//  set_unicode_input_mode(UC_LNX);
+//};
